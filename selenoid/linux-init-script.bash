@@ -9,7 +9,7 @@ apt-cache policy docker-ce
 sudo apt-get install -y docker-ce
 sudo apt-get -y install python-pip
 sudo pip install docker-compose
-sudo docker pull selenoid/video-recorder
+sudo docker pull selenoid/video-recorder:latest-release
 sudo docker pull selenoid/chrome:72.0
 sudo docker pull selenoid/chrome:71.0
 sudo docker pull selenoid/firefox:66.0

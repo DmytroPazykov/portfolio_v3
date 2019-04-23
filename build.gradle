@@ -126,6 +126,10 @@ allprojects {
         systemProperties['runType'] = 'chrome_69'
     }
 
+    task firefox66(type: Test){
+        systemProperties['runType'] = 'firefox_66'
+    }
+
     //  Force all test run as 'clean test'
     test.dependsOn 'cleanTest'
 }
