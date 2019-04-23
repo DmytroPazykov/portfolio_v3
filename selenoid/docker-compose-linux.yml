@@ -1,0 +1,22 @@
+version: '3'
+services:
+  selenoid:
+    image: "aerokube/selenoid"
+    network_mode: bridge
+    ports:
+      - "4444:4444"
+    volumes:
+      - "/home/ubuntu/portfolio/selenoid:/etc/selenoid/" # assumed current dir contains browsers.json
+      - "/home/ubuntu/portfolio/selenoidvideo:/opt/selenoid/video/"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/home/ubuntu/portfolio/selenoid:/opt/selenoid/logs"
+    environment:
+      - OVERRIDE_VIDEO_OUTPUT_DIR=/home/ubuntu/portfolio/selenoid/video
+  selenoid-ui:
+    image: "aerokube/selenoid-ui"
+    network_mode: bridge
+    links:
+      - selenoid
+    ports:
+      - "8080:8080"
+    command: ["--selenoid-uri", "http://selenoid:4444"]

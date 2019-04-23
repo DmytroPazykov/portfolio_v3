@@ -1,0 +1,128 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "io.qameta.allure:allure-gradle:2.5"
+    }
+}
+
+allprojects {
+
+    apply plugin: 'idea'
+    apply plugin: 'java'
+    apply plugin: 'checkstyle'
+    apply plugin: 'pmd'
+    apply plugin: 'findbugs'
+    apply plugin: 'io.qameta.allure'
+
+    ext {
+        commonApache = "3.7"
+        junitVersion = "5.4.2"
+        log4j = "2.11.1"
+        sl4j = "1.7.25"
+        logback = "1.2.3"
+        selenide = "5.2.2"
+        await = "3.1.2"
+        lombok = "1.18.6"
+    }
+
+    group 'portfolio_v3'
+    version '1.0.0'
+
+    sourceCompatibility = 1.8
+
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    dependencies {
+        compile("org.apache.logging.log4j:log4j-core:$log4j",
+                "org.apache.logging.log4j:log4j-api:$log4j",
+                "org.apache.commons:commons-lang3:$commonApache",
+                "org.junit.jupiter:junit-jupiter:$junitVersion",
+                "ch.qos.logback:logback-classic:$logback",
+                "ch.qos.logback:logback-core:$logback",
+                "com.codeborne:selenide:$selenide",
+                "org.awaitility:awaitility:$await",
+                "org.slf4j:slf4j-api:$sl4j"
+        )
+
+        compileOnly "org.projectlombok:lombok:$lombok"
+        annotationProcessor "org.projectlombok:lombok:$lombok"
+    }
+
+    tasks.withType(Test) {
+
+        doLast {
+            allureReport
+        }
+
+        useJUnitPlatform {
+            includeTags 'ui'
+        }
+
+        testLogging {
+            showStandardStreams = true
+            events 'passed', 'skipped', 'failed'
+            exceptionFormat = "full"
+        }
+
+        reports {
+            html.enabled = true
+        }
+
+        systemProperties['junit.jupiter.execution.parallel.enabled'] = true
+        systemProperties['junit.jupiter.execution.parallel.config.strategy'] = "dynamic"
+        systemProperties['junit.jupiter.execution.parallel.config.fixed.parallelism'] = 2
+
+        forkEvery = 1
+
+        test.outputs.upToDateWhen { false }
+    }
+
+
+    allure {
+        autoconfigure = true
+
+        version = '2.7.0'
+        aspectjweaver = true
+        configuration = 'compile'
+
+        useJUnit5 {
+            version = '2.7.0'
+        }
+
+    }
+
+    task chromeHeadless(type: Test) {
+        systemProperties['selenide.browser'] = 'chrome'
+        systemProperties['selenide.headless'] = 'true'
+        systemProperties['selenide.reportsFolder'] = 'build/reports/tests/chrome_headless'
+    }
+
+    task chrome(type: Test) {
+        systemProperties['selenide.browser'] = 'chrome'
+        systemProperties['selenide.reportsFolder'] = 'build/reports/tests/chrome'
+    }
+
+    task chrome72(type: Test){
+        systemProperties['runType'] = 'chrome_72'
+    }
+
+    task chrome71(type: Test){
+        systemProperties['runType'] = 'chrome_71'
+    }
+
+    task chrome70(type: Test){
+        systemProperties['runType'] = 'chrome_70'
+    }
+
+    task chrome69(type: Test){
+        systemProperties['runType'] = 'chrome_69'
+    }
+}
