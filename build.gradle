@@ -125,4 +125,7 @@ allprojects {
     task chrome69(type: Test){
         systemProperties['runType'] = 'chrome_69'
     }
+
+    //  Force all test run as 'clean test'
+    test.dependsOn 'cleanTest'
 }
