@@ -57,7 +57,8 @@ allprojects {
     }
 
     tasks.withType(Test) {
-
+        dependsOn 'cleanTest'
+        
         doLast {
             allureReport
         }
@@ -129,7 +130,4 @@ allprojects {
     task firefox66(type: Test){
         systemProperties['runType'] = 'firefox_66'
     }
-
-    //  Force all test run as 'clean test'
-    test.dependsOn 'cleanTest'
 }
