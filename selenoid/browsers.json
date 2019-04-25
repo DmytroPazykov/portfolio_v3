@@ -38,5 +38,15 @@
         "screenResolution": "1280x1024x24"
       }
     }
+  },
+  "android": {
+    "default": "8.0",
+    "versions": {
+      "8.0": {
+        "image": "selenoid/chrome-mobile:8.0",
+        "port": "4444",
+        "path": "/"
+      }
+    }
   }
 }
