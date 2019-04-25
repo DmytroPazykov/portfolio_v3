@@ -55,7 +55,7 @@ public class BaseTest implements TestLifecycleLogger {
                 remoteBrowserSetup(Browsers.FIREFOX, "66.0");
                 break;
             case ("android_8.1"):
-                remoteBrowserSetup("android", "8.1", "QVGA", "240x320");
+                remoteBrowserSetup("android", "8.0", "QVGA", "240x320");
             default:
                 throw new NoSuchElementException("Please specify browser for a test run");
         }
@@ -80,8 +80,8 @@ public class BaseTest implements TestLifecycleLogger {
         device.setCapability("browserName",browserName);
         device.setCapability("version",version);
         device.setCapability("enableVNC", true);
-//        device.setCapability("skin", skin);
-//        device.setCapability("resolution", resolution);
+        device.setCapability("skin", skin);
+        device.setCapability("resolution", resolution);
         device.setCapability("appPackage", "com.android");
         device.setCapability("appActivity", "com.android.chrome_73");
         RemoteWebDriver driver = new RemoteWebDriver(URI.create("http://localhost:4444/wd/hub").toURL(), device);
