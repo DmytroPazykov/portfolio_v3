@@ -54,7 +54,7 @@ public class BaseTest implements TestLifecycleLogger {
             case ("firefox_66"):
                 remoteBrowserSetup(Browsers.FIREFOX, "66.0");
                 break;
-            case ("android_8.1"):
+            case ("android_8.0"):
                 remoteBrowserSetup("android", "8.0", "QVGA", "240x320");
             default:
                 throw new NoSuchElementException("Please specify browser for a test run");

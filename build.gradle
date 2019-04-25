@@ -58,7 +58,7 @@ allprojects {
 
     tasks.withType(Test) {
         dependsOn 'cleanTest'
-        
+
         doLast {
             allureReport
         }
@@ -111,23 +111,27 @@ allprojects {
         systemProperties['selenide.reportsFolder'] = 'build/reports/tests/chrome'
     }
 
-    task chrome72(type: Test){
+    task chrome72(type: Test) {
         systemProperties['runType'] = 'chrome_72'
     }
 
-    task chrome71(type: Test){
+    task chrome71(type: Test) {
         systemProperties['runType'] = 'chrome_71'
     }
 
-    task chrome70(type: Test){
+    task chrome70(type: Test) {
         systemProperties['runType'] = 'chrome_70'
     }
 
-    task chrome69(type: Test){
+    task chrome69(type: Test) {
         systemProperties['runType'] = 'chrome_69'
     }
 
-    task firefox66(type: Test){
+    task firefox66(type: Test) {
         systemProperties['runType'] = 'firefox_66'
+    }
+
+    task android_8_0(type: Test) {
+        systemProperties['runType'] = 'android_8.0'
     }
 }
